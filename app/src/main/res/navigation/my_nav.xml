@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/movieFragment">
+
+    <fragment
+        android:id="@+id/movieFragment"
+        android:name="com.fyndev.moviecatalogue.home.movie.MovieFragment"
+        android:label="Movies"
+        tools:layout="@layout/fragment_movie">
+        <action
+            android:id="@+id/action_movieFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/tvFragment"
+        android:name="com.fyndev.moviecatalogue.home.tv.TvFragment"
+        android:label="Tv Show"
+        tools:layout="@layout/fragment_tv">
+        <action
+            android:id="@+id/action_tvFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/personFragment"
+        android:name="com.fyndev.moviecatalogue.home.person.PersonFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_person" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.fyndev.moviecatalogue.detail.DetailFragment"
+        android:label="Detail Movie"
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="id"
+            android:defaultValue="str"
+            app:argType="string" />
+    </fragment>
+</navigation>

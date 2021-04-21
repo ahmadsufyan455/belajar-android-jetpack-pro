@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Movie Catalogue</string>
+    <string name="overview">In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="movie">Movie</string>
+    <string name="tv_show">Tv Show</string>
+    <string name="profile">Profile</string>
+    <string name="movie_description">Movie Description</string>
+    <string name="my_name">Ahmad Sufyan Tsauri</string>
+    <string name="my_email">ahmadsufyan514@gmail.com</string>
+    <string name="share">Share</string>
+</resources>
