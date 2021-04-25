@@ -1,7 +1,7 @@
 package com.fyndev.moviecatalogue.data.source.local.entity
 
 data class MovieEntity(
-        var id: String = "",
+        var id: Int = 0,
         var title: String = "",
         var overview: String = "",
         var release_date: String = "",

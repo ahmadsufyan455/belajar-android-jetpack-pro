@@ -1,26 +1,27 @@
 package com.fyndev.moviecatalogue.detail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.fyndev.moviecatalogue.utils.DataMovie
+import com.fyndev.moviecatalogue.data.source.MovieRepository
 import com.fyndev.moviecatalogue.data.source.local.entity.MovieEntity
+import com.fyndev.moviecatalogue.data.source.local.entity.TvShowEntity
 
-class DetailViewModel : ViewModel() {
-    private lateinit var id: String
+class DetailViewModel(private val movieRepository: MovieRepository) : ViewModel() {
+    companion object {
+        private const val apiKey = "e40c34a2a097d56ae9509a5ab8c47d44"
+    }
 
-    fun setSelectedById(id: String) {
+    private var id: Int = 0
+
+    fun setSelectedById(id: Int) {
         this.id = id
     }
 
-    fun getDetail(): MovieEntity {
-        lateinit var movie: MovieEntity
-        val entityList = ArrayList<MovieEntity>()
-        entityList.addAll(DataMovie.getMovie())
-        entityList.addAll(DataMovie.getTvShow())
-        for (movieEntity in entityList) {
-            if (movieEntity.id == id) {
-                movie = movieEntity
-            }
-        }
-        return movie
+    fun getDetailMovie(): LiveData<MovieEntity> {
+        return movieRepository.getDetailMovie(id, apiKey)
+    }
+
+    fun getDetailTvShow(): LiveData<TvShowEntity> {
+        return movieRepository.getDetailTvShow(id, apiKey)
     }
 }

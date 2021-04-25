@@ -10,7 +10,9 @@ import androidx.navigation.fragment.navArgs
 import coil.load
 import com.fyndev.moviecatalogue.R
 import com.fyndev.moviecatalogue.data.source.local.entity.MovieEntity
+import com.fyndev.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.fyndev.moviecatalogue.databinding.FragmentDetailBinding
+import com.fyndev.moviecatalogue.viewmodel.ViewModelFactory
 
 class DetailFragment : Fragment() {
 
@@ -32,16 +34,28 @@ class DetailFragment : Fragment() {
 
         val id = args.id
 
-        val viewModel = ViewModelProvider(
-                this,
-                ViewModelProvider.NewInstanceFactory()
-        )[DetailViewModel::class.java]
+        val factory = ViewModelFactory.getInstance()
+        val viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
         viewModel.setSelectedById(id)
-        setData(viewModel.getDetail())
+
+        // get detail movies
+        viewModel.getDetailMovie().observe(viewLifecycleOwner, { detailMovie ->
+            if (detailMovie != null) {
+                populateMovies(detailMovie)
+            }
+        })
+
+        // get detail tv show
+        viewModel.getDetailTvShow().observe(viewLifecycleOwner, { detailTvShow ->
+            if (detailTvShow != null) {
+                populateTvShow(detailTvShow)
+            }
+        })
     }
 
-    private fun setData(movieEntity: MovieEntity) {
-        binding.ivBackdrop.load(movieEntity.backdrop_path) {
+    private fun populateMovies(movieEntity: MovieEntity) {
+        val imgUrl = "https://image.tmdb.org/t/p/w533_and_h300_bestv2"
+        binding.ivBackdrop.load(imgUrl + movieEntity.backdrop_path) {
             crossfade(true)
             crossfade(1000)
         }
@@ -50,6 +64,19 @@ class DetailFragment : Fragment() {
         binding.tvDate.text = movieEntity.release_date
         binding.tvRating.text = movieEntity.vote_average
         binding.tvDescription.text = movieEntity.overview
+    }
+
+    private fun populateTvShow(tvShowEntity: TvShowEntity) {
+        val imgUrl = "https://image.tmdb.org/t/p/w533_and_h300_bestv2"
+        binding.ivBackdrop.load(imgUrl + tvShowEntity.backdrop_path) {
+            crossfade(true)
+            crossfade(1000)
+        }
+        title = tvShowEntity.name
+        binding.tvTitle.text = tvShowEntity.name
+        binding.tvDate.text = tvShowEntity.first_air_date
+        binding.tvRating.text = tvShowEntity.vote_average
+        binding.tvDescription.text = tvShowEntity.overview
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

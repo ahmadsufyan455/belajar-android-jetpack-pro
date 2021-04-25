@@ -3,7 +3,6 @@ package com.fyndev.moviecatalogue.home.movie
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.fyndev.moviecatalogue.data.source.MovieRepository
-import com.fyndev.moviecatalogue.data.source.local.entity.MovieEntity
 import com.fyndev.moviecatalogue.data.source.remote.response.MovieResponse
 
 class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel() {

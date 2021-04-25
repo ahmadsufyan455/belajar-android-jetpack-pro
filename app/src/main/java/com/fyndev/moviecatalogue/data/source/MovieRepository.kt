@@ -2,6 +2,8 @@ package com.fyndev.moviecatalogue.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.fyndev.moviecatalogue.data.source.local.entity.MovieEntity
+import com.fyndev.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.fyndev.moviecatalogue.data.source.remote.RemoteDataSource
 import com.fyndev.moviecatalogue.data.source.remote.response.MovieResponse
 import com.fyndev.moviecatalogue.data.source.remote.response.TvShowResponse
@@ -38,5 +40,27 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
 
         })
         return tvShow
+    }
+
+    override fun getDetailMovie(id: Int, apiKey: String): LiveData<MovieEntity> {
+        val detailMovie = MutableLiveData<MovieEntity>()
+        remoteDataSource.getDetailMovie(id, apiKey, object : RemoteDataSource.LoadDetailMovieCallback {
+            override fun onDetailReceived(movieEntity: MovieEntity) {
+                detailMovie.postValue(movieEntity)
+            }
+
+        })
+        return detailMovie
+    }
+
+    override fun getDetailTvShow(id: Int, apiKey: String): LiveData<TvShowEntity> {
+        val detailTvShow = MutableLiveData<TvShowEntity>()
+        remoteDataSource.getDetailTvShow(id, apiKey, object : RemoteDataSource.LoadDetailTvShowCallback {
+            override fun onDetailReceived(tvShowEntity: TvShowEntity) {
+                detailTvShow.postValue(tvShowEntity)
+            }
+
+        })
+        return detailTvShow
     }
 }

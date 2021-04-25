@@ -43,7 +43,7 @@
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="id"
-            android:defaultValue="str"
-            app:argType="string" />
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
 </navigation>

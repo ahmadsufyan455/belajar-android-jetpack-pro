@@ -1,7 +1,7 @@
 package com.fyndev.moviecatalogue.data.source.local.entity
 
 data class TvShowEntity(
-        var id: String = "",
+        var id: Int = 0,
         var name: String = "",
         var overview: String = "",
         var first_air_date: String = "",
