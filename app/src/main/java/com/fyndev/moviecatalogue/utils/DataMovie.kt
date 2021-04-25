@@ -1,4 +1,6 @@
-package com.fyndev.moviecatalogue.data
+package com.fyndev.moviecatalogue.utils
+
+import com.fyndev.moviecatalogue.data.source.local.entity.MovieEntity
 
 object DataMovie {
 

@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.fyndev.moviecatalogue.R
-import com.fyndev.moviecatalogue.data.MovieEntity
+import com.fyndev.moviecatalogue.data.source.local.entity.MovieEntity
 import com.fyndev.moviecatalogue.databinding.FragmentDetailBinding
 
 class DetailFragment : Fragment() {
@@ -41,15 +41,15 @@ class DetailFragment : Fragment() {
     }
 
     private fun setData(movieEntity: MovieEntity) {
-        binding.ivBackdrop.load(movieEntity.backdrop) {
+        binding.ivBackdrop.load(movieEntity.backdrop_path) {
             crossfade(true)
             crossfade(1000)
         }
         title = movieEntity.title
         binding.tvTitle.text = movieEntity.title
-        binding.tvDate.text = movieEntity.release
-        binding.tvRating.text = movieEntity.rating
-        binding.tvDescription.text = movieEntity.description
+        binding.tvDate.text = movieEntity.release_date
+        binding.tvRating.text = movieEntity.vote_average
+        binding.tvDescription.text = movieEntity.overview
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -1,6 +1,6 @@
 package com.fyndev.moviecatalogue.detail
 
-import com.fyndev.moviecatalogue.data.DataMovie
+import com.fyndev.moviecatalogue.utils.DataMovie
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before

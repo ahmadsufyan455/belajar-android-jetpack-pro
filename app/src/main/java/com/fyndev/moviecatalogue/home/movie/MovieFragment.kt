@@ -10,9 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fyndev.moviecatalogue.R
-import com.fyndev.moviecatalogue.adapter.MovieAdapter
-import com.fyndev.moviecatalogue.data.MovieEntity
+import com.fyndev.moviecatalogue.data.source.local.entity.MovieEntity
 import com.fyndev.moviecatalogue.databinding.FragmentMovieBinding
+import com.fyndev.moviecatalogue.viewmodel.ViewModelFactory
 
 class MovieFragment : Fragment() {
 
@@ -29,14 +29,18 @@ class MovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewModel = ViewModelProvider(
-                this,
-                ViewModelProvider.NewInstanceFactory()
-        )[MovieViewModel::class.java]
-        val movies = viewModel.getDataMovie()
+        val factory = ViewModelFactory.getInstance()
+        val viewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
 
         val movieAdapter = MovieAdapter()
-        movieAdapter.setData(movies)
+
+        viewModel.getDataMovie().observe(viewLifecycleOwner, { movies ->
+            if (movies != null) {
+                val movieEntity = movies.results
+                movieAdapter.setData(movieEntity)
+            }
+        })
+
 
         // setup recyclerview
         with(binding.rvMovie) {

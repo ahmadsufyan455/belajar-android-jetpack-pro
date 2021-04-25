@@ -1,14 +1,14 @@
-package com.fyndev.moviecatalogue.adapter
+package com.fyndev.moviecatalogue.home.tv
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.fyndev.moviecatalogue.data.MovieEntity
+import com.fyndev.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.fyndev.moviecatalogue.databinding.RvItemBinding
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.ViewHolder>() {
 
     private lateinit var onItemClickCallBack: OnItemClickCallBack
 
@@ -16,11 +16,11 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
         this.onItemClickCallBack = onItemClickCallBack
     }
 
-    private val listMovie = ArrayList<MovieEntity>()
+    private val listTvShow = ArrayList<TvShowEntity>()
 
-    fun setData(list: ArrayList<MovieEntity>) {
-        listMovie.clear()
-        listMovie.addAll(list)
+    fun setData(list: List<TvShowEntity>) {
+        listTvShow.clear()
+        listTvShow.addAll(list)
         notifyDataSetChanged()
     }
 
@@ -29,27 +29,28 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(listMovie[position])
+        holder.bind(listTvShow[position])
         holder.itemView.setOnClickListener {
-            onItemClickCallBack.onItemClicked(listMovie[holder.adapterPosition])
+            onItemClickCallBack.onItemClicked(listTvShow[holder.adapterPosition])
         }
     }
 
-    override fun getItemCount(): Int = listMovie.size
+    override fun getItemCount(): Int = listTvShow.size
 
     class ViewHolder(private val binding: RvItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movieEntity: MovieEntity) {
-            binding.ivPoster.load(movieEntity.poster) {
+        private val imageUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2"
+        fun bind(tvShowEntity: TvShowEntity) {
+            binding.ivPoster.load(imageUrl + tvShowEntity.poster_path) {
                 crossfade(true)
                 crossfade(1000)
                 transformations(RoundedCornersTransformation(10f))
             }
-            binding.tvTitle.text = movieEntity.title
-            binding.tvDescription.text = movieEntity.description
+            binding.tvTitle.text = tvShowEntity.name
+            binding.tvDescription.text = tvShowEntity.overview
         }
     }
 
     interface OnItemClickCallBack {
-        fun onItemClicked(movieEntity: MovieEntity)
+        fun onItemClicked(tvShowEntity: TvShowEntity)
     }
 }

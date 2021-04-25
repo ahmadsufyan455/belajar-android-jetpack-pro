@@ -10,9 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fyndev.moviecatalogue.R
-import com.fyndev.moviecatalogue.adapter.MovieAdapter
-import com.fyndev.moviecatalogue.data.MovieEntity
+import com.fyndev.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.fyndev.moviecatalogue.databinding.FragmentTvBinding
+import com.fyndev.moviecatalogue.viewmodel.ViewModelFactory
 
 class TvFragment : Fragment() {
 
@@ -29,9 +29,17 @@ class TvFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[TvShowViewModel::class.java]
-        val tvShowAdapter = MovieAdapter()
-        tvShowAdapter.setData(viewModel.getDataTvShow())
+        val factory = ViewModelFactory.getInstance()
+        val viewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]
+
+        val tvShowAdapter = TvShowAdapter()
+
+        viewModel.getTvShow().observe(viewLifecycleOwner, { tvShow ->
+            if (tvShow != null) {
+                val tvShowEntity = tvShow.results
+                tvShowAdapter.setData(tvShowEntity)
+            }
+        })
 
         with(binding.rvTvShow) {
             layoutManager = LinearLayoutManager(requireActivity())
@@ -39,9 +47,9 @@ class TvFragment : Fragment() {
             adapter = tvShowAdapter
         }
 
-        tvShowAdapter.setOnItemClickCallBack(object : MovieAdapter.OnItemClickCallBack {
-            override fun onItemClicked(movieEntity: MovieEntity) {
-                val direction = TvFragmentDirections.actionTvFragmentToDetailFragment(movieEntity.id)
+        tvShowAdapter.setOnItemClickCallBack(object : TvShowAdapter.OnItemClickCallBack {
+            override fun onItemClicked(tvShowEntity: TvShowEntity) {
+                val direction = TvFragmentDirections.actionTvFragmentToDetailFragment(tvShowEntity.id)
                 findNavController().navigate(direction)
             }
         })

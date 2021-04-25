@@ -1,8 +1,8 @@
 package com.fyndev.moviecatalogue.detail
 
 import androidx.lifecycle.ViewModel
-import com.fyndev.moviecatalogue.data.DataMovie
-import com.fyndev.moviecatalogue.data.MovieEntity
+import com.fyndev.moviecatalogue.utils.DataMovie
+import com.fyndev.moviecatalogue.data.source.local.entity.MovieEntity
 
 class DetailViewModel : ViewModel() {
     private lateinit var id: String
