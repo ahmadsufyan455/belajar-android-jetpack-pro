@@ -1,11 +1,26 @@
 package com.fyndev.moviecatalogue.utils
 
 import com.fyndev.moviecatalogue.data.source.local.entity.MovieEntity
+import com.fyndev.moviecatalogue.data.source.local.entity.TvShowEntity
+import com.fyndev.moviecatalogue.data.source.remote.response.MovieResponse
+import com.fyndev.moviecatalogue.data.source.remote.response.TvShowResponse
 
 object DataMovie {
 
-    fun getMovie(): ArrayList<MovieEntity> {
+    fun getMovie(): MovieResponse {
         val listMovie = ArrayList<MovieEntity>()
+
+        listMovie.add(
+                MovieEntity(
+                        460465,
+                        "Mortal Kombat",
+                        "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe.",
+                        "2021-04-07",
+                        "8",
+                        "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg",
+                        "https://image.tmdb.org/t/p/w533_and_h300_bestv2/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg"
+                )
+        )
 
         listMovie.add(
                 MovieEntity(
@@ -40,18 +55,6 @@ object DataMovie {
                         "8.3",
                         "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/lPsD10PP4rgUGiGR4CCXA6iY0QQ.jpg",
                         "https://image.tmdb.org/t/p/w533_and_h300_bestv2/7prYzufdIOy1KCTZKVWpjBFqqNr.jpg"
-                )
-        )
-
-        listMovie.add(
-                MovieEntity(
-                        460465,
-                        "Mortal Kombat",
-                        "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe.",
-                        "2021-04-07",
-                        "7.6",
-                        "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/8yhtzsbBExY8mUct2GOk4LDDuGH.jpg",
-                        "https://image.tmdb.org/t/p/w533_and_h300_bestv2/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg"
                 )
         )
 
@@ -127,14 +130,14 @@ object DataMovie {
                 )
         )
 
-        return listMovie
+        return MovieResponse(listMovie)
     }
 
-    fun getTvShow(): ArrayList<MovieEntity> {
-        val listTvShow = ArrayList<MovieEntity>()
+    fun getTvShow(): TvShowResponse {
+        val listTvShow = ArrayList<TvShowEntity>()
 
         listTvShow.add(
-                MovieEntity(
+                TvShowEntity(
                         71712,
                         "The Good Doctor",
                         "A young surgeon with Savant syndrome is recruited into the surgical unit of a prestigious hospital. The question will arise: can a person who doesn't have the ability to relate to people actually save their lives",
@@ -146,7 +149,7 @@ object DataMovie {
         )
 
         listTvShow.add(
-                MovieEntity(
+                TvShowEntity(
                         62286,
                         "Fear the Walking Dead",
                         "What did the world look like as it was transforming into the horrifying apocalypse depicted in \\\"The Walking Dead\\\"? This spin-off set in Los Angeles, following new characters as they face the beginning of the end of the world, will answer that question.",
@@ -158,7 +161,7 @@ object DataMovie {
         )
 
         listTvShow.add(
-                MovieEntity(
+                TvShowEntity(
                         79744,
                         "The Rookie",
                         "Starting over isn’t easy, especially for small-town guy John Nolan who, after a life-altering incident, is pursuing his dream of being an LAPD officer. As the force’s oldest rookie, he’s met with skepticism from some higher-ups who see him as just a walking midlife crisis.",
@@ -170,7 +173,7 @@ object DataMovie {
         )
 
         listTvShow.add(
-                MovieEntity(
+                TvShowEntity(
                         456,
                         "The Simpsons",
                         "Set in Springfield, the average American town, the show focuses on the antics and everyday adventures of the Simpson family; Homer, Marge, Bart, Lisa and Maggie, as well as a virtual cast of thousands. Since the beginning, the series has been a pop culture icon, attracting hundreds of celebrities to guest star. The show has also made name for itself in its fearless satirical take on politics, media and American life in general.",
@@ -182,7 +185,7 @@ object DataMovie {
         )
 
         listTvShow.add(
-                MovieEntity(
+                TvShowEntity(
                         1434,
                         "Family Guy",
                         "Sick, twisted, politically incorrect and Freakin' Sweet animated series featuring the adventures of the dysfunctional Griffin family. Bumbling Peter and long-suffering Lois have three kids. Stewie (a brilliant but sadistic baby bent on killing his mother and taking over the world), Meg (the oldest, and is the most unpopular girl in town) and Chris (the middle kid, he's not very bright but has a passion for movies). The final member of the family is Brian - a talking dog and much more than a pet, he keeps Stewie in check whilst sipping Martinis and sorting through his own life issues.",
@@ -194,7 +197,7 @@ object DataMovie {
         )
 
         listTvShow.add(
-                MovieEntity(
+                TvShowEntity(
                         89247,
                         "Batwoman",
                         "Kate Kane, armed with a passion for social justice and a flair for speaking her mind, soars onto the streets of Gotham as Batwoman, an out lesbian and highly trained street fighter primed to snuff out the failing city's criminal resurgence. But don't call her a hero yet. In a city desperate for a savior, Kate must overcome her own demons before embracing the call to be Gotham's symbol of hope",
@@ -206,7 +209,7 @@ object DataMovie {
         )
 
         listTvShow.add(
-                MovieEntity(
+                TvShowEntity(
                         79611,
                         "Charmed",
                         "Set in the fictional college town of Hilltowne, Charmed follows the lives of three sisters, Macy, Mel and Maggie Vera who, after the tragic death of their mother, discover they are three of the most powerful witches of all time.",
@@ -218,7 +221,7 @@ object DataMovie {
         )
 
         listTvShow.add(
-                MovieEntity(
+                TvShowEntity(
                         75219,
                         "9-1-1",
                         "Explore the high-pressure experiences of police officers, paramedics and firefighters who are thrust into the most frightening, shocking and heart-stopping situations. These emergency responders must try to balance saving those who are at their most vulnerable with solving the problems in their own lives.",
@@ -230,7 +233,7 @@ object DataMovie {
         )
 
         listTvShow.add(
-                MovieEntity(
+                TvShowEntity(
                         105009,
                         "Tokyo Revengers",
                         "Takemichi Hanagaki is a freelancer that's reached the absolute pits of despair in his life. He finds out that the only girlfriend he ever had, in middle school, Hinata Tachibana, had been killed by the ruthless Tokyo Manji Gang. The day after hearing about her death, he's standing on the station platform and ends up being pushed over onto the tracks by a herd of people. He closes his eyes thinking he's about to die, but when he opens his eyes back up, he somehow had gone back in time 12 years. Now that he's back living the best days of his life, Takemichi decides to get revenge on his life.",
@@ -242,7 +245,7 @@ object DataMovie {
         )
 
         listTvShow.add(
-                MovieEntity(
+                TvShowEntity(
                         71663,
                         "Black Lightning",
                         "Jefferson Pierce is a man wrestling with a secret. As the father of two daughters and principal of a charter high school that also serves as a safe haven for young people in a New Orleans neighborhood overrun by gang violence, he is a hero to his community.",
@@ -253,7 +256,7 @@ object DataMovie {
                 )
         )
 
-        return listTvShow
+        return TvShowResponse(listTvShow)
     }
 
 }
