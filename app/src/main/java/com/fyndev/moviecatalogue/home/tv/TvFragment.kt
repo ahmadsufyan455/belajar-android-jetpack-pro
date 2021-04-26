@@ -38,6 +38,7 @@ class TvFragment : Fragment() {
             if (tvShow != null) {
                 val tvShowEntity = tvShow.results
                 tvShowAdapter.setData(tvShowEntity)
+                binding.progressBar.visibility = View.GONE
             }
         })
 

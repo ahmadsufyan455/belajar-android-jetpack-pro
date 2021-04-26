@@ -38,6 +38,7 @@ class MovieFragment : Fragment() {
             if (movies != null) {
                 val movieEntity = movies.results
                 movieAdapter.setData(movieEntity)
+                binding.progressBar.visibility = View.GONE
             }
         })
 

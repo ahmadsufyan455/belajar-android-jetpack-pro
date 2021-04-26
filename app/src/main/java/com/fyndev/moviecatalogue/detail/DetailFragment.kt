@@ -42,6 +42,7 @@ class DetailFragment : Fragment() {
         viewModel.getDetailMovie().observe(viewLifecycleOwner, { detailMovie ->
             if (detailMovie != null) {
                 populateMovies(detailMovie)
+                binding.progressBar.visibility = View.GONE
             }
         })
 
@@ -49,6 +50,7 @@ class DetailFragment : Fragment() {
         viewModel.getDetailTvShow().observe(viewLifecycleOwner, { detailTvShow ->
             if (detailTvShow != null) {
                 populateTvShow(detailTvShow)
+                binding.progressBar.visibility = View.GONE
             }
         })
     }
