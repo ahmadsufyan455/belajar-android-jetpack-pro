@@ -13,10 +13,10 @@ object ApiClient {
         val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(base_url)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+                .baseUrl(base_url)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
 
         retrofit.create(ApiEndpoint::class.java)
     }

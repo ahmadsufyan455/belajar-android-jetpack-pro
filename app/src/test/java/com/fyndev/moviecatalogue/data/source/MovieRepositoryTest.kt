@@ -38,7 +38,7 @@ class MovieRepositoryTest {
     fun getMovies() {
         doAnswer { invocation ->
             (invocation.arguments[1] as RemoteDataSource.LoadMovieCallback)
-                .onAllMovieReceived(movieResponse)
+                    .onAllMovieReceived(movieResponse)
             null
         }.`when`(remote).getMovies(eq(apiKey), any())
         val movieEntities = LiveDataTestUtil.getValue(movieRepository.getMovies(apiKey))
@@ -51,7 +51,7 @@ class MovieRepositoryTest {
     fun getTvShow() {
         doAnswer { invocation ->
             (invocation.arguments[1] as RemoteDataSource.LoadTvShowCallback)
-                .onAllTvShowReceived(tvShowResponse)
+                    .onAllTvShowReceived(tvShowResponse)
             null
         }.`when`(remote).getTvShow(eq(apiKey), any())
         val tvShowEntities = LiveDataTestUtil.getValue(movieRepository.getTvShow(apiKey))
@@ -64,7 +64,7 @@ class MovieRepositoryTest {
     fun getDetailMovie() {
         doAnswer { invocation ->
             (invocation.arguments[2] as RemoteDataSource.LoadDetailMovieCallback)
-                .onDetailReceived(detailMovieEntity)
+                    .onDetailReceived(detailMovieEntity)
             null
         }.`when`(remote).getDetailMovie(eq(movieId), eq(apiKey), any())
         val movieEntities = LiveDataTestUtil.getValue(movieRepository.getDetailMovie(movieId, apiKey))
@@ -77,7 +77,7 @@ class MovieRepositoryTest {
     fun getDetailTvShow() {
         doAnswer { invocation ->
             (invocation.arguments[2] as RemoteDataSource.LoadDetailTvShowCallback)
-                .onDetailReceived(detailTvShowEntity)
+                    .onDetailReceived(detailTvShowEntity)
             null
         }.`when`(remote).getDetailTvShow(eq(tvId), eq(apiKey), any())
         val tvShowEntities = LiveDataTestUtil.getValue(movieRepository.getDetailTvShow(tvId, apiKey))

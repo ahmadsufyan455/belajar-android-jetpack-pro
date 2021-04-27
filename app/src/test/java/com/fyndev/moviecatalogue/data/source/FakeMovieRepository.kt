@@ -8,7 +8,7 @@ import com.fyndev.moviecatalogue.data.source.remote.RemoteDataSource
 import com.fyndev.moviecatalogue.data.source.remote.response.MovieResponse
 import com.fyndev.moviecatalogue.data.source.remote.response.TvShowResponse
 
-class FakeMovieRepository (private val remoteDataSource: RemoteDataSource) : MovieDataSource {
+class FakeMovieRepository(private val remoteDataSource: RemoteDataSource) : MovieDataSource {
 
     override fun getMovies(apiKey: String): LiveData<MovieResponse> {
         val movies = MutableLiveData<MovieResponse>()

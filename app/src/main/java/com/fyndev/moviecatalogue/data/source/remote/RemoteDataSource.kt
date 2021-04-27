@@ -1,11 +1,11 @@
 package com.fyndev.moviecatalogue.data.source.remote
 
-import android.util.Log
 import com.fyndev.moviecatalogue.data.source.local.entity.MovieEntity
 import com.fyndev.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.fyndev.moviecatalogue.data.source.remote.response.MovieResponse
 import com.fyndev.moviecatalogue.data.source.remote.response.TvShowResponse
 import com.fyndev.moviecatalogue.service.ApiClient
+import com.fyndev.moviecatalogue.utils.EspressoIdlingResource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,10 +26,12 @@ class RemoteDataSource {
      * List
      */
     fun getMovies(apiKey: String, callback: LoadMovieCallback) {
+        EspressoIdlingResource.increment()
         ApiClient.instance.getMovie(apiKey).enqueue(object : Callback<MovieResponse> {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 if (response.isSuccessful) {
                     response.body()?.let { callback.onAllMovieReceived(it) }
+                    EspressoIdlingResource.decrement()
                 }
             }
 
@@ -41,10 +43,12 @@ class RemoteDataSource {
     }
 
     fun getTvShow(apiKey: String, callback: LoadTvShowCallback) {
+        EspressoIdlingResource.increment()
         ApiClient.instance.getTvShow(apiKey).enqueue(object : Callback<TvShowResponse> {
             override fun onResponse(call: Call<TvShowResponse>, response: Response<TvShowResponse>) {
                 if (response.isSuccessful) {
                     response.body()?.let { callback.onAllTvShowReceived(it) }
+                    EspressoIdlingResource.decrement()
                 }
             }
 
@@ -59,10 +63,12 @@ class RemoteDataSource {
      * Detail
      */
     fun getDetailMovie(id: Int, apiKey: String, callback: LoadDetailMovieCallback) {
+        EspressoIdlingResource.increment()
         ApiClient.instance.getDetailMovie(id, apiKey).enqueue(object : Callback<MovieEntity> {
             override fun onResponse(call: Call<MovieEntity>, response: Response<MovieEntity>) {
                 if (response.isSuccessful) {
                     response.body()?.let { callback.onDetailReceived(it) }
+                    EspressoIdlingResource.decrement()
                 }
             }
 
@@ -74,10 +80,12 @@ class RemoteDataSource {
     }
 
     fun getDetailTvShow(id: Int, apiKey: String, callback: LoadDetailTvShowCallback) {
+        EspressoIdlingResource.increment()
         ApiClient.instance.getDetailTvShow(id, apiKey).enqueue(object : Callback<TvShowEntity> {
             override fun onResponse(call: Call<TvShowEntity>, response: Response<TvShowEntity>) {
                 if (response.isSuccessful) {
                     response.body()?.let { callback.onDetailReceived(it) }
+                    EspressoIdlingResource.decrement()
                 }
             }
 

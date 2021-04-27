@@ -24,7 +24,7 @@ interface ApiEndpoint {
     /*
     * Tv Show
     */
-    @GET("tv/airing_today")
+    @GET("tv/on_the_air")
     fun getTvShow(@Query("api_key") apiKey: String): Call<TvShowResponse>
 
     @GET("tv/{tv_id}")
