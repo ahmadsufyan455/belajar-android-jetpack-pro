@@ -1,6 +1,7 @@
 package com.fyndev.moviecatalogue.data.source
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.fyndev.moviecatalogue.BuildConfig
 import com.fyndev.moviecatalogue.data.source.remote.RemoteDataSource
 import com.fyndev.moviecatalogue.utils.DataMovie
 import com.fyndev.moviecatalogue.utils.LiveDataTestUtil
@@ -17,7 +18,7 @@ import org.mockito.Mockito.mock
 class MovieRepositoryTest {
 
     companion object {
-        private const val apiKey = "e40c34a2a097d56ae9509a5ab8c47d44"
+        private const val apiKey = BuildConfig.MOVIE_KEY
     }
 
     @get:Rule

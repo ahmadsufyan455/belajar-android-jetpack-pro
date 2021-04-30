@@ -3,6 +3,7 @@ package com.fyndev.moviecatalogue.home.movie
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.fyndev.moviecatalogue.BuildConfig
 import com.fyndev.moviecatalogue.data.source.MovieRepository
 import com.fyndev.moviecatalogue.data.source.remote.response.MovieResponse
 import com.fyndev.moviecatalogue.utils.DataMovie
@@ -21,7 +22,7 @@ import org.mockito.junit.MockitoJUnitRunner
 class MovieViewModelTest {
 
     companion object {
-        private const val apiKey = "e40c34a2a097d56ae9509a5ab8c47d44"
+        private const val apiKey = BuildConfig.MOVIE_KEY
     }
 
     private lateinit var viewModel: MovieViewModel
