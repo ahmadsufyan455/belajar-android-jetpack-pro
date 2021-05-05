@@ -43,7 +43,11 @@
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="id"
-            android:defaultValue="0"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="state"
+            app:argType="string"
+            android:defaultValue="MOVIE" />
     </fragment>
 </navigation>

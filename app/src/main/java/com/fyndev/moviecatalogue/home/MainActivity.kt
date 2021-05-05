@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
         navController = findNavController(R.id.fragment)
         val appBarConfiguration =
-                AppBarConfiguration(setOf(R.id.movieFragment, R.id.tvFragment, R.id.personFragment))
+            AppBarConfiguration(setOf(R.id.movieFragment, R.id.tvFragment, R.id.personFragment))
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
