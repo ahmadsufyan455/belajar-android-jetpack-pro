@@ -5,6 +5,7 @@ import android.view.*
 import android.viewbinding.library.fragment.viewBinding
 import android.widget.Toast
 import androidx.core.app.ShareCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -26,6 +27,9 @@ class DetailFragment : Fragment() {
     private val args: DetailFragmentArgs by navArgs()
     private val binding: FragmentDetailBinding by viewBinding()
     private lateinit var title: String
+    private lateinit var viewModel: DetailViewModel
+    private lateinit var data: String
+    private var menu: Menu? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,10 +44,10 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val id = args.id
-        val data = args.state
+        data = args.state
 
         val factory = ViewModelFactory.getInstance(requireActivity())
-        val viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
+        viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
         viewModel.setState(id, data)
 
         if (data == MOVIE) {
@@ -111,12 +115,56 @@ class DetailFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.detail_menu, menu)
+        this.menu = menu
+        if (data == MOVIE) {
+            viewModel.getDetailMovie().observe(viewLifecycleOwner, { detailMovie ->
+                when (detailMovie.status) {
+                    Status.LOADING -> showProgressbar(true)
+                    Status.SUCCESS -> {
+                        if (detailMovie != null) {
+                            showProgressbar(false)
+                            val state = detailMovie.data?.isFavorite
+                            state?.let { setFavoriteState(it) }
+                        }
+                    }
+                    Status.ERROR -> {
+                        showProgressbar(false)
+                        Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        } else if (data == TV_SHOW) {
+            viewModel.getDetailTvShow().observe(viewLifecycleOwner, { detailTvShow ->
+                when (detailTvShow.status) {
+                    Status.LOADING -> showProgressbar(true)
+                    Status.SUCCESS -> {
+                        if (detailTvShow != null) {
+                            showProgressbar(false)
+                            val state = detailTvShow.data?.isFavorite
+                            state?.let { setFavoriteState(it) }
+                        }
+                    }
+                    Status.ERROR -> {
+                        showProgressbar(false)
+                        Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.ic_share) {
             onShareClick()
             return true
+        } else if (item.itemId == R.id.ic_favorite) {
+            if (data == MOVIE) {
+                viewModel.setFavoriteMovie()
+                return true
+            } else if (data == TV_SHOW) {
+                viewModel.setFavoriteTvShow()
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -136,6 +184,17 @@ class DetailFragment : Fragment() {
             binding.progressBar.visibility = View.VISIBLE
         } else {
             binding.progressBar.visibility = View.GONE
+        }
+    }
+
+    private fun setFavoriteState(isFavorite: Boolean) {
+        if (menu == null) return
+        val menuItem = menu?.findItem(R.id.ic_favorite)
+        if (isFavorite) {
+            menuItem?.icon = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_favorite)
+        } else {
+            menuItem?.icon =
+                ContextCompat.getDrawable(requireActivity(), R.drawable.ic_favorite_border)
         }
     }
 }

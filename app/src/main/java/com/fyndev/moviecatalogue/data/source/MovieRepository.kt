@@ -132,4 +132,20 @@ class MovieRepository private constructor(
             }
         }.asLiveData()
     }
+
+    override fun getFavoriteMovie(): LiveData<List<MovieEntity>> {
+        return localDataSource.getFavoriteMovie()
+    }
+
+    override fun getFavoriteTvShow(): LiveData<List<TvShowEntity>> {
+        return localDataSource.getFavoriteTvShow()
+    }
+
+    override fun setFavoriteMovie(movie: MovieEntity, isFavorite: Boolean) {
+        appExecutors.diskIO().execute { localDataSource.setMovieStatus(movie, isFavorite) }
+    }
+
+    override fun setFavoriteTvShow(tvShow: TvShowEntity, isFavorite: Boolean) {
+        appExecutors.diskIO().execute { localDataSource.setTvShowStatus(tvShow, isFavorite) }
+    }
 }

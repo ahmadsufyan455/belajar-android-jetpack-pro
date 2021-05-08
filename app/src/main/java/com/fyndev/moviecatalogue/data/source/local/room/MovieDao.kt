@@ -33,4 +33,10 @@ interface MovieDao {
 
     @Update
     fun updateTvShow(tvShow: TvShowEntity)
+
+    @Query("SELECT * FROM movie_entities WHERE isFavorite = 1")
+    fun getFavoriteMovie(): LiveData<List<MovieEntity>>
+
+    @Query("SELECT * FROM tv_entities WHERE isFavorite = 1")
+    fun getFavoriteTvShow(): LiveData<List<TvShowEntity>>
 }

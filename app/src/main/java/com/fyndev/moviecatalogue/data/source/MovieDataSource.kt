@@ -15,4 +15,11 @@ interface MovieDataSource {
 
     fun getDetailTvShow(id: Int): LiveData<Resource<TvShowEntity>>
 
+    fun getFavoriteMovie(): LiveData<List<MovieEntity>>
+
+    fun setFavoriteMovie(movie: MovieEntity, isFavorite: Boolean)
+
+    fun getFavoriteTvShow(): LiveData<List<TvShowEntity>>
+
+    fun setFavoriteTvShow(tvShow: TvShowEntity, isFavorite: Boolean)
 }

@@ -28,5 +28,8 @@ data class TvShowEntity(
     var poster_path: String? = null,
 
     @ColumnInfo(name = "backdrop_path")
-    var backdrop_path: String? = null
+    var backdrop_path: String? = null,
+
+    @ColumnInfo(name = "isFavorite")
+    var isFavorite: Boolean = false
 )

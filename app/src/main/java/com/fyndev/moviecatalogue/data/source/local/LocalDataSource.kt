@@ -33,4 +33,18 @@ class LocalDataSource private constructor(private val movieDao: MovieDao) {
     fun updateTvShow(tvShow: TvShowEntity) {
         movieDao.updateTvShow(tvShow)
     }
+
+    fun getFavoriteMovie() = movieDao.getFavoriteMovie()
+
+    fun setMovieStatus(movie: MovieEntity, newState: Boolean) {
+        movie.isFavorite = newState
+        movieDao.updateMovie(movie)
+    }
+
+    fun getFavoriteTvShow() = movieDao.getFavoriteTvShow()
+
+    fun setTvShowStatus(tvShow: TvShowEntity, newState: Boolean) {
+        tvShow.isFavorite = newState
+        movieDao.updateTvShow(tvShow)
+    }
 }

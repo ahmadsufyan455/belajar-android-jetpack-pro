@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.fyndev.moviecatalogue.R
 import com.fyndev.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.fyndev.moviecatalogue.databinding.FragmentTvBinding
+import com.fyndev.moviecatalogue.detail.DetailFragment
 import com.fyndev.moviecatalogue.viewmodel.ViewModelFactory
 import com.fyndev.moviecatalogue.vo.Status
 
@@ -64,7 +65,7 @@ class TvFragment : Fragment() {
             override fun onItemClicked(tvShowEntity: TvShowEntity) {
                 val direction = TvFragmentDirections.actionTvFragmentToDetailFragment(
                     tvShowEntity.id,
-                    "tv_show"
+                    DetailFragment.TV_SHOW
                 )
                 findNavController().navigate(direction)
             }

@@ -32,10 +32,18 @@
             app:popExitAnim="@anim/to_left" />
     </fragment>
     <fragment
-        android:id="@+id/personFragment"
-        android:name="com.fyndev.moviecatalogue.home.person.PersonFragment"
-        android:label="Profile"
-        tools:layout="@layout/fragment_person" />
+        android:id="@+id/favoriteFragment"
+        android:name="com.fyndev.moviecatalogue.home.favorite.FavoriteFragment"
+        android:label="Favorite"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_detailFragment2"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left" />
+    </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.fyndev.moviecatalogue.detail.DetailFragment"
@@ -50,4 +58,14 @@
             app:argType="string"
             android:defaultValue="MOVIE" />
     </fragment>
+    <fragment
+        android:id="@+id/favoriteMovieFragment"
+        android:name="com.fyndev.moviecatalogue.home.favorite.movie.FavoriteMovieFragment"
+        android:label="fragment_favorite_movie"
+        tools:layout="@layout/fragment_favorite_movie" />
+    <fragment
+        android:id="@+id/favoriteTvShowFragment"
+        android:name="com.fyndev.moviecatalogue.home.favorite.tvshow.FavoriteTvShowFragment"
+        android:label="fragment_favorite_tv_show"
+        tools:layout="@layout/fragment_favorite_tv_show" />
 </navigation>
