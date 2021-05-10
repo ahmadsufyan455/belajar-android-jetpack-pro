@@ -3,10 +3,10 @@ package com.fyndev.moviecatalogue.home.tv
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.fyndev.moviecatalogue.BuildConfig
 import com.fyndev.moviecatalogue.data.source.MovieRepository
-import com.fyndev.moviecatalogue.data.source.remote.response.TvShowResponse
+import com.fyndev.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.fyndev.moviecatalogue.utils.DataMovie
+import com.fyndev.moviecatalogue.vo.Resource
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -20,10 +20,6 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class TvShowViewModelTest {
 
-    companion object {
-        private const val apiKey = BuildConfig.MOVIE_KEY
-    }
-
     private lateinit var viewModel: TvShowViewModel
 
     @get:Rule
@@ -33,7 +29,7 @@ class TvShowViewModelTest {
     private lateinit var movieRepository: MovieRepository
 
     @Mock
-    private lateinit var observer: Observer<TvShowResponse>
+    private lateinit var observer: Observer<Resource<List<TvShowEntity>>>
 
     @Before
     fun setup() {
@@ -42,15 +38,15 @@ class TvShowViewModelTest {
 
     @Test
     fun getTvShow() {
-        val dummyTvSHow = DataMovie.getTvShow()
-        val tvShow = MutableLiveData<TvShowResponse>()
+        val dummyTvSHow = Resource.success(DataMovie.getTvShow())
+        val tvShow = MutableLiveData<Resource<List<TvShowEntity>>>()
         tvShow.value = dummyTvSHow
 
-        Mockito.`when`(movieRepository.getTvShow(apiKey)).thenReturn(tvShow)
-        val tvShowEntities = viewModel.getTvShow().value
-        Mockito.verify(movieRepository).getTvShow(apiKey)
+        Mockito.`when`(movieRepository.getTvShow()).thenReturn(tvShow)
+        val tvShowEntities = viewModel.getTvShow().value?.data
+        Mockito.verify(movieRepository).getTvShow()
         assertNotNull(tvShowEntities)
-        assertEquals(10, tvShowEntities?.results?.size)
+        assertEquals(10, tvShowEntities?.size)
 
         viewModel.getTvShow().observeForever(observer)
         Mockito.verify(observer).onChanged(dummyTvSHow)

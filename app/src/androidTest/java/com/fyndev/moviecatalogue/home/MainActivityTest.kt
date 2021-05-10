@@ -36,9 +36,9 @@ class MainActivityTest {
     fun loadMovie() {
         onView(withId(R.id.rvMovie)).check(matches(isDisplayed()))
         onView(withId(R.id.rvMovie)).perform(
-                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                        dataMovie.results.size
-                )
+            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
+                dataMovie.size
+            )
         )
     }
 
@@ -47,19 +47,19 @@ class MainActivityTest {
         onView(withId(R.id.tvFragment)).perform(click())
         onView(withId(R.id.rvTvShow)).check(matches(isDisplayed()))
         onView(withId(R.id.rvTvShow)).perform(
-                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                        dataTvShow.results.size
-                )
+            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
+                dataTvShow.size
+            )
         )
     }
 
     @Test
     fun loadDetailMovie() {
         onView(withId(R.id.rvMovie)).perform(
-                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                        0,
-                        click()
-                )
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                click()
+            )
         )
         onView(withId(R.id.ivBackdrop)).check(matches(isDisplayed()))
         onView(withId(R.id.tvTitle)).check(matches(isDisplayed()))
@@ -72,10 +72,10 @@ class MainActivityTest {
     fun loadDetailTvShow() {
         onView(withId(R.id.tvFragment)).perform(click())
         onView(withId(R.id.rvTvShow)).perform(
-                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                        0,
-                        click()
-                )
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                click()
+            )
         )
         onView(withId(R.id.ivBackdrop)).check(matches(isDisplayed()))
         onView(withId(R.id.tvTitle)).check(matches(isDisplayed()))

@@ -2,12 +2,10 @@ package com.fyndev.moviecatalogue.utils
 
 import com.fyndev.moviecatalogue.data.source.local.entity.MovieEntity
 import com.fyndev.moviecatalogue.data.source.local.entity.TvShowEntity
-import com.fyndev.moviecatalogue.data.source.remote.response.MovieResponse
-import com.fyndev.moviecatalogue.data.source.remote.response.TvShowResponse
 
 object DataMovie {
 
-    fun getMovie(): MovieResponse {
+    fun getMovie(): List<MovieEntity> {
         val listMovie = ArrayList<MovieEntity>()
 
         listMovie.add(
@@ -130,10 +128,10 @@ object DataMovie {
             )
         )
 
-        return MovieResponse(listMovie)
+        return listMovie
     }
 
-    fun getTvShow(): TvShowResponse {
+    fun getTvShow(): List<TvShowEntity> {
         val listTvShow = ArrayList<TvShowEntity>()
 
         listTvShow.add(
@@ -256,7 +254,7 @@ object DataMovie {
             )
         )
 
-        return TvShowResponse(listTvShow)
+        return listTvShow
     }
 
     fun getDetailMovie(id: Int): MovieEntity {

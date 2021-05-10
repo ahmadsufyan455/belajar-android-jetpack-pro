@@ -31,6 +31,8 @@ class DetailViewModel(private val movieRepository: MovieRepository) : ViewModel(
 
     fun getDetailMovie() = detailMovie
 
+    fun getDetailMovieForTest() = movieRepository.getDetailMovie(id)
+
     fun getDetailTvShow() = detailTvShow
 
     fun setFavoriteMovie() {
