@@ -37,14 +37,13 @@ class FavoriteTvShowFragment : Fragment() {
 
         viewModel.getFavoriteTvShow().observe(viewLifecycleOwner, { favTvShow ->
             if (favTvShow != null) {
-                favoriteTvShowAdapter.setData(favTvShow)
+                favoriteTvShowAdapter.submitList(favTvShow)
             }
         })
 
         // setup recyclerview
         with(binding.rvFavoriteTvShow) {
             layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
             adapter = favoriteTvShowAdapter
         }
 

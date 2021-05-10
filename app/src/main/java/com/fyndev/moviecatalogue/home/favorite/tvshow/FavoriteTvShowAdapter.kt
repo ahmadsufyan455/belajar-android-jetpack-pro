@@ -2,13 +2,29 @@ package com.fyndev.moviecatalogue.home.favorite.tvshow
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.fyndev.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.fyndev.moviecatalogue.databinding.RvItemBinding
 
-class FavoriteTvShowAdapter : RecyclerView.Adapter<FavoriteTvShowAdapter.ViewHolder>() {
+class FavoriteTvShowAdapter :
+    PagedListAdapter<TvShowEntity, FavoriteTvShowAdapter.ViewHolder>(DIFF_CALLBACK) {
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShowEntity>() {
+            override fun areItemsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean {
+                return oldItem == newItem
+            }
+
+        }
+    }
 
     private lateinit var onItemClickCallBack: OnItemClickCallBack
 
@@ -16,28 +32,21 @@ class FavoriteTvShowAdapter : RecyclerView.Adapter<FavoriteTvShowAdapter.ViewHol
         this.onItemClickCallBack = onItemClickCallBack
     }
 
-    private val listTvShow = ArrayList<TvShowEntity>()
-
-    fun setData(list: List<TvShowEntity>) {
-        listTvShow.clear()
-        listTvShow.addAll(list)
-        notifyDataSetChanged()
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(RvItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(listTvShow[position])
-        holder.itemView.setOnClickListener {
-            onItemClickCallBack.onItemClicked(listTvShow[holder.adapterPosition])
+        val tvShows = getItem(position)
+        if (tvShows != null) {
+            holder.bind(tvShows)
         }
     }
 
-    override fun getItemCount(): Int = listTvShow.size
+    fun getSwipeData(swipedPosition: Int): TvShowEntity? = getItem(swipedPosition)
 
-    class ViewHolder(private val binding: RvItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: RvItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         private val imageUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2"
         fun bind(tvShowEntity: TvShowEntity) {
             binding.ivPoster.load(imageUrl + tvShowEntity.poster_path) {
@@ -47,6 +56,7 @@ class FavoriteTvShowAdapter : RecyclerView.Adapter<FavoriteTvShowAdapter.ViewHol
             }
             binding.tvTitle.text = tvShowEntity.name
             binding.tvDescription.text = tvShowEntity.overview
+            itemView.setOnClickListener { onItemClickCallBack.onItemClicked(tvShowEntity) }
         }
     }
 

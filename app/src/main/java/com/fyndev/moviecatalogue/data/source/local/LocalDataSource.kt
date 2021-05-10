@@ -1,6 +1,7 @@
 package com.fyndev.moviecatalogue.data.source.local
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import com.fyndev.moviecatalogue.data.source.local.entity.MovieEntity
 import com.fyndev.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.fyndev.moviecatalogue.data.source.local.room.MovieDao
@@ -34,14 +35,14 @@ class LocalDataSource private constructor(private val movieDao: MovieDao) {
         movieDao.updateTvShow(tvShow)
     }
 
-    fun getFavoriteMovie() = movieDao.getFavoriteMovie()
+    fun getFavoriteMovie(): DataSource.Factory<Int, MovieEntity> = movieDao.getFavoriteMovie()
 
     fun setMovieStatus(movie: MovieEntity, newState: Boolean) {
         movie.isFavorite = newState
         movieDao.updateMovie(movie)
     }
 
-    fun getFavoriteTvShow() = movieDao.getFavoriteTvShow()
+    fun getFavoriteTvShow(): DataSource.Factory<Int, TvShowEntity> = movieDao.getFavoriteTvShow()
 
     fun setTvShowStatus(tvShow: TvShowEntity, newState: Boolean) {
         tvShow.isFavorite = newState

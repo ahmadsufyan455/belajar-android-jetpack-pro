@@ -2,13 +2,29 @@ package com.fyndev.moviecatalogue.home.favorite.movie
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.fyndev.moviecatalogue.data.source.local.entity.MovieEntity
 import com.fyndev.moviecatalogue.databinding.RvItemBinding
 
-class FavoriteMovieAdapter : RecyclerView.Adapter<FavoriteMovieAdapter.ViewHolder>() {
+class FavoriteMovieAdapter :
+    PagedListAdapter<MovieEntity, FavoriteMovieAdapter.ViewHolder>(DIFF_CALLBACK) {
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieEntity>() {
+            override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+                return oldItem == newItem
+            }
+
+        }
+    }
 
     private lateinit var onItemClickCallBack: OnItemClickCallBack
 
@@ -16,28 +32,21 @@ class FavoriteMovieAdapter : RecyclerView.Adapter<FavoriteMovieAdapter.ViewHolde
         this.onItemClickCallBack = onItemClickCallBack
     }
 
-    private val listMovie = ArrayList<MovieEntity>()
-
-    fun setData(list: List<MovieEntity>) {
-        listMovie.clear()
-        listMovie.addAll(list)
-        notifyDataSetChanged()
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(RvItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(listMovie[position])
-        holder.itemView.setOnClickListener {
-            onItemClickCallBack.onItemClicked(listMovie[holder.adapterPosition])
+        val movies = getItem(position)
+        if (movies != null) {
+            holder.bind(movies)
         }
     }
 
-    override fun getItemCount(): Int = listMovie.size
+    fun getSwipeData(swipedPosition: Int): MovieEntity? = getItem(swipedPosition)
 
-    class ViewHolder(private val binding: RvItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: RvItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         private val imageUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2"
         fun bind(movieEntity: MovieEntity) {
             binding.ivPoster.load(imageUrl + movieEntity.poster_path) {
@@ -47,6 +56,7 @@ class FavoriteMovieAdapter : RecyclerView.Adapter<FavoriteMovieAdapter.ViewHolde
             }
             binding.tvTitle.text = movieEntity.title
             binding.tvDescription.text = movieEntity.overview
+            itemView.setOnClickListener { onItemClickCallBack.onItemClicked(movieEntity) }
         }
     }
 

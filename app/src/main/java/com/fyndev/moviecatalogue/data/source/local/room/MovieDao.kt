@@ -1,6 +1,7 @@
 package com.fyndev.moviecatalogue.data.source.local.room
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import com.fyndev.moviecatalogue.data.source.local.entity.MovieEntity
 import com.fyndev.moviecatalogue.data.source.local.entity.TvShowEntity
@@ -35,8 +36,8 @@ interface MovieDao {
     fun updateTvShow(tvShow: TvShowEntity)
 
     @Query("SELECT * FROM movie_entities WHERE isFavorite = 1")
-    fun getFavoriteMovie(): LiveData<List<MovieEntity>>
+    fun getFavoriteMovie(): DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT * FROM tv_entities WHERE isFavorite = 1")
-    fun getFavoriteTvShow(): LiveData<List<TvShowEntity>>
+    fun getFavoriteTvShow(): DataSource.Factory<Int, TvShowEntity>
 }

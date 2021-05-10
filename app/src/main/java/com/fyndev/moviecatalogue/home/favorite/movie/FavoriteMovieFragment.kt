@@ -37,14 +37,13 @@ class FavoriteMovieFragment : Fragment() {
 
         viewModel.getFavoriteMovie().observe(viewLifecycleOwner, { favMovie ->
             if (favMovie != null) {
-                favoriteMovieAdapter.setData(favMovie)
+                favoriteMovieAdapter.submitList(favMovie)
             }
         })
 
         // setup recyclerview
         with(binding.rvFavoriteMovie) {
             layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
             adapter = favoriteMovieAdapter
         }
 

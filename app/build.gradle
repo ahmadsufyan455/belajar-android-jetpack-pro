@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'androidx.navigation.safeargs.kotlin'
-    id 'kotlin-parcelize'
     id 'kotlin-kapt'
 }
 
@@ -84,4 +83,7 @@ dependencies {
     // room database
     implementation "androidx.room:room-runtime:2.3.0"
     kapt "androidx.room:room-compiler:2.3.0"
+
+    // paging
+    implementation "androidx.paging:paging-runtime-ktx:3.0.0"
 }
