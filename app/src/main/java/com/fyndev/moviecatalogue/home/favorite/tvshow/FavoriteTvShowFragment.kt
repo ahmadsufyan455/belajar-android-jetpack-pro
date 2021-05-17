@@ -36,8 +36,9 @@ class FavoriteTvShowFragment : Fragment() {
         val favoriteTvShowAdapter = FavoriteTvShowAdapter()
 
         viewModel.getFavoriteTvShow().observe(viewLifecycleOwner, { favTvShow ->
-            if (favTvShow != null) {
+            if (favTvShow != null && favTvShow.size != 0) {
                 favoriteTvShowAdapter.submitList(favTvShow)
+                binding.tvNoData.visibility = View.GONE
             }
         })
 

@@ -36,8 +36,9 @@ class FavoriteMovieFragment : Fragment() {
         val favoriteMovieAdapter = FavoriteMovieAdapter()
 
         viewModel.getFavoriteMovie().observe(viewLifecycleOwner, { favMovie ->
-            if (favMovie != null) {
+            if (favMovie != null && favMovie.size != 0) {
                 favoriteMovieAdapter.submitList(favMovie)
+                binding.tvNoData.visibility = View.GONE
             }
         })
 
