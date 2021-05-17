@@ -141,6 +141,7 @@ class MovieRepository private constructor(
             .setInitialLoadSizeHint(4)
             .setPageSize(4)
             .build()
+
         return LivePagedListBuilder(localDataSource.getFavoriteMovie(), config).build()
     }
 
@@ -150,6 +151,7 @@ class MovieRepository private constructor(
             .setInitialLoadSizeHint(4)
             .setPageSize(4)
             .build()
+
         return LivePagedListBuilder(localDataSource.getFavoriteTvShow(), config).build()
     }
 

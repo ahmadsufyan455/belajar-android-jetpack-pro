@@ -3,8 +3,6 @@ package com.fyndev.moviecatalogue.data.source.remote
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fyndev.moviecatalogue.BuildConfig.MOVIE_KEY
-import com.fyndev.moviecatalogue.data.source.local.entity.MovieEntity
-import com.fyndev.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.fyndev.moviecatalogue.data.source.remote.response.DetailMovieResponse
 import com.fyndev.moviecatalogue.data.source.remote.response.DetailTvShowResponse
 import com.fyndev.moviecatalogue.data.source.remote.response.MovieResponse
@@ -118,21 +116,5 @@ class RemoteDataSource {
 
             })
         return resultDetailTvShow
-    }
-
-    interface LoadMovieCallback {
-        fun onAllMovieReceived(movieResponse: MovieResponse)
-    }
-
-    interface LoadTvShowCallback {
-        fun onAllTvShowReceived(tvShowResponse: TvShowResponse)
-    }
-
-    interface LoadDetailMovieCallback {
-        fun onDetailReceived(movieEntity: MovieEntity)
-    }
-
-    interface LoadDetailTvShowCallback {
-        fun onDetailReceived(tvShowEntity: TvShowEntity)
     }
 }

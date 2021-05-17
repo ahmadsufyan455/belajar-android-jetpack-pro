@@ -43,8 +43,6 @@ class FavoriteTvShowAdapter :
         }
     }
 
-    fun getSwipeData(swipedPosition: Int): TvShowEntity? = getItem(swipedPosition)
-
     inner class ViewHolder(private val binding: RvItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val imageUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2"
