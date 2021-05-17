@@ -140,10 +140,10 @@ class FakeMovieRepository constructor(
     }
 
     override fun setFavoriteMovie(movie: MovieEntity, isFavorite: Boolean) {
-        appExecutors.diskIO().execute { localDataSource.setMovieStatus(movie, isFavorite) }
+        localDataSource.setMovieStatus(movie, isFavorite)
     }
 
     override fun setFavoriteTvShow(tvShow: TvShowEntity, isFavorite: Boolean) {
-        appExecutors.diskIO().execute { localDataSource.setTvShowStatus(tvShow, isFavorite) }
+        localDataSource.setTvShowStatus(tvShow, isFavorite)
     }
 }

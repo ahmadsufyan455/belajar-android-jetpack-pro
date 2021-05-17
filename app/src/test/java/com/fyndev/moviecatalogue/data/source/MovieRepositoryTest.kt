@@ -13,6 +13,7 @@ import com.fyndev.moviecatalogue.utils.LiveDataTestUtil
 import com.fyndev.moviecatalogue.utils.PagedListUtil
 import com.fyndev.moviecatalogue.vo.Resource
 import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Rule
@@ -112,5 +113,19 @@ class MovieRepositoryTest {
         verify(local).getFavoriteTvShow()
         assertNotNull(tvShowEntity)
         assertEquals(tvShowResponse.size, tvShowEntity.data?.size)
+    }
+
+    @Test
+    fun setFavoriteMovie() {
+        movieRepository.setFavoriteMovie(DataMovie.getDetailMovie(movieId), true)
+        verify(local).setMovieStatus(DataMovie.getDetailMovie(movieId), true)
+        verifyNoMoreInteractions(local)
+    }
+
+    @Test
+    fun setFavoriteTvShow() {
+        movieRepository.setFavoriteTvShow(DataMovie.getDetailTvShow(tvId), true)
+        verify(local).setTvShowStatus(DataMovie.getDetailTvShow(tvId), true)
+        verifyNoMoreInteractions(local)
     }
 }

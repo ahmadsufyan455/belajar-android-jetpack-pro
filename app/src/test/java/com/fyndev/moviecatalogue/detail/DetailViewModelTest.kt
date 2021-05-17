@@ -5,9 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.fyndev.moviecatalogue.data.source.MovieRepository
 import com.fyndev.moviecatalogue.data.source.local.entity.MovieEntity
+import com.fyndev.moviecatalogue.detail.DetailViewModel.Companion.MOVIE
 import com.fyndev.moviecatalogue.utils.DataMovie
 import com.fyndev.moviecatalogue.vo.Resource
 import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -47,5 +49,18 @@ class DetailViewModelTest {
 
         viewModel.getDetailMovieForTest().observeForever(detailMovieObserver)
         verify(detailMovieObserver).onChanged(dummyMovie)
+    }
+
+    @Test
+    fun setFavoriteMovie() {
+        val detailMovie = Resource.success(DataMovie.getDetailMovie(movieId!!))
+        val movie = MutableLiveData<Resource<MovieEntity>>()
+        movie.value = detailMovie
+
+        `when`(movieRepository.getDetailMovie(movieId)).thenReturn(movie)
+        viewModel.setState(movieId, MOVIE)
+        viewModel.setFavoriteMovie()
+        verify(movieRepository).setFavoriteMovie(movie.value!!.data as MovieEntity, true)
+        verifyNoMoreInteractions(detailMovieObserver)
     }
 }
