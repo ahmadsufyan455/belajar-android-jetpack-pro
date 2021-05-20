@@ -7,4 +7,7 @@
     <string name="share">Share</string>
     <string name="favorite">Favorite</string>
     <string name="no_data">No Data</string>
+    <string name="logo">The movie logo</string>
+    <string name="poster">Poster movie</string>
+    <string name="backdrop">Backdrop movie</string>
 </resources>

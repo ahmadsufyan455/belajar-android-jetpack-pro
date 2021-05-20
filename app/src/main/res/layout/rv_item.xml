@@ -13,11 +13,11 @@
         android:layout_width="96dp"
         android:layout_height="120dp"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/poster"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription"
         tools:src="@drawable/poster_1" />
 
     <TextView

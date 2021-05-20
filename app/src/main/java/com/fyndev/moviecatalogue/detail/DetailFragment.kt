@@ -19,11 +19,6 @@ import com.fyndev.moviecatalogue.vo.Status
 
 class DetailFragment : Fragment() {
 
-    companion object {
-        const val MOVIE = "movie"
-        const val TV_SHOW = "tv_show"
-    }
-
     private val args: DetailFragmentArgs by navArgs()
     private val binding: FragmentDetailBinding by viewBinding()
     private lateinit var title: String
@@ -196,5 +191,10 @@ class DetailFragment : Fragment() {
             menuItem?.icon =
                 ContextCompat.getDrawable(requireActivity(), R.drawable.ic_favorite_border)
         }
+    }
+
+    companion object {
+        const val MOVIE = "movie"
+        const val TV_SHOW = "tv_show"
     }
 }

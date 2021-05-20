@@ -19,9 +19,10 @@ class ViewPagerAdapter(private val context: Context, fm: FragmentManager) :
 
     override fun getItem(position: Int): Fragment {
         var fragment: Fragment? = null
-        when (position) {
-            0 -> fragment = FavoriteMovieFragment()
-            1 -> fragment = FavoriteTvShowFragment()
+        if (position == 0) {
+            fragment = FavoriteMovieFragment()
+        } else if (position == 1) {
+            fragment = FavoriteTvShowFragment()
         }
         return fragment as Fragment
     }

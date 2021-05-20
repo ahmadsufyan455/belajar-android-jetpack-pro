@@ -14,11 +14,11 @@
             android:id="@+id/ivBackdrop"
             android:layout_width="match_parent"
             android:layout_height="225dp"
+            android:contentDescription="@string/backdrop"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription"
             tools:src="@drawable/backdrop_1" />
 
         <TextView
